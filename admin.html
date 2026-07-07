@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Administration — BARBER PRO DZ</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="icons/icon-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin">
+
+<!-- ===================== ÉCRAN DE CONNEXION ===================== -->
+<div class="ecran-login" id="ecran-login">
+  <div class="carte-login">
+    <i class="fa-solid fa-scissors rasoir"></i>
+    <h1>Espace Administrateur</h1>
+    <p class="sous">BARBER PRO DZ — Connexion sécurisée</p>
+    <form id="form-login">
+      <div class="champ"><label>Identifiant</label><input id="login-user" required placeholder="admin"></div>
+      <div class="champ"><label>Mot de passe</label><input id="login-pass" type="password" required placeholder="••••••••"></div>
+      <button class="btn btn-or btn-bloc" type="submit">Se connecter</button>
+      <div class="erreur-login" id="erreur-login"></div>
+    </form>
+    <p style="color:var(--gris); font-size:.75rem; margin-top:18px;">Identifiants par défaut : admin / admin123</p>
+    <p style="margin-top:14px"><a href="index.html" style="color:var(--gris); font-size:.85rem"><i class="fa-solid fa-arrow-left"></i> Retour au site</a></p>
+  </div>
+</div>
+
+<!-- ===================== APPLICATION ADMIN ===================== -->
+<div id="app-admin" class="masque" style="display:flex; width:100%;">
+
+  <aside class="sidebar">
+    <div class="logo-admin"><i class="fa-solid fa-scissors"></i> <span data-nom-salon-admin>BARBER PRO DZ</span></div>
+    <ul class="menu-admin">
+      <li><a href="#" data-section="dashboard"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+      <li><a href="#" data-section="calendrier"><i class="fa-regular fa-calendar"></i> Calendrier</a></li>
+      <li><a href="#" data-section="reservations"><i class="fa-regular fa-calendar-check"></i> Réservations</a></li>
+      <li><a href="#" data-section="clients"><i class="fa-solid fa-users"></i> Clients</a></li>
+      <li><a href="#" data-section="coiffeurs"><i class="fa-solid fa-user-tie"></i> Coiffeurs</a></li>
+      <li><a href="#" data-section="prestations"><i class="fa-solid fa-scissors"></i> Prestations</a></li>
+      <li><a href="#" data-section="horaires"><i class="fa-regular fa-clock"></i> Horaires</a></li>
+      <li><a href="#" data-section="galerie"><i class="fa-regular fa-images"></i> Galerie</a></li>
+      <li><a href="#" data-section="statistiques"><i class="fa-solid fa-chart-line"></i> Statistiques</a></li>
+      <li><a href="#" data-section="parametres"><i class="fa-solid fa-gear"></i> Paramètres</a></li>
+    </ul>
+    <div class="bas-sidebar">
+      <button class="btn btn-contour btn-bloc" id="btn-deconnexion"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</button>
+    </div>
+  </aside>
+
+  <div class="contenu-admin">
+    <div class="topbar-admin">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <button class="btn-menu-admin-mobile btn btn-contour btn-petit" id="btn-menu-admin-mobile"><i class="fa-solid fa-bars"></i></button>
+        <h2 id="titre-page-admin">Tableau de bord</h2>
+      </div>
+      <a href="index.html" target="_blank" class="btn btn-contour btn-petit"><i class="fa-solid fa-arrow-up-right-from-square"></i> Voir le site</a>
+    </div>
+
+    <div class="zone-page-admin">
+
+      <!-- ===== DASHBOARD ===== -->
+      <div class="page-admin actif" id="page-dashboard">
+        <div class="grille-stats" id="cartes-stats-dashboard"></div>
+        <div class="grille-graphiques">
+          <div class="panneau"><h3>Revenu des 7 derniers jours</h3><div class="conteneur-graphique"><canvas id="graphique-revenu"></canvas></div></div>
+          <div class="panneau"><h3>Répartition des prestations</h3><div class="conteneur-graphique"><canvas id="graphique-services-dash"></canvas></div></div>
+        </div>
+        <div class="panneau">
+          <h3>Prochaines réservations</h3>
+          <table class="table-admin">
+            <thead><tr><th>Client</th><th>Service</th><th>Coiffeur</th><th>Quand</th><th>Statut</th></tr></thead>
+            <tbody id="liste-prochaines-resa"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== CALENDRIER ===== -->
+      <div class="page-admin" id="page-calendrier">
+        <div class="panneau"><div id="calendrier-fc"></div></div>
+      </div>
+
+      <!-- ===== RÉSERVATIONS ===== -->
+      <div class="page-admin" id="page-reservations">
+        <div class="barre-outils">
+          <div class="recherche"><i class="fa-solid fa-magnifying-glass"></i><input id="recherche-reservations" placeholder="Rechercher un client, un numéro..."></div>
+          <select id="filtre-statut-resa">
+            <option value="">Tous les statuts</option>
+            <option value="confirmée">Confirmée</option>
+            <option value="terminée">Terminée</option>
+            <option value="annulée">Annulée</option>
+          </select>
+        </div>
+        <table class="table-admin">
+          <thead><tr><th>Client</th><th>Service</th><th>Coiffeur</th><th>Date</th><th>Prix</th><th>Statut</th><th></th></tr></thead>
+          <tbody id="table-reservations"></tbody>
+        </table>
+      </div>
+
+      <!-- ===== CLIENTS ===== -->
+      <div class="page-admin" id="page-clients">
+        <div class="barre-outils">
+          <div class="recherche"><i class="fa-solid fa-magnifying-glass"></i><input id="recherche-clients" placeholder="Rechercher un client..."></div>
+        </div>
+        <table class="table-admin">
+          <thead><tr><th>Nom</th><th>Téléphone</th><th>Visites</th><th>Total dépensé</th><th>Dernière visite</th></tr></thead>
+          <tbody id="table-clients"></tbody>
+        </table>
+      </div>
+
+      <!-- ===== COIFFEURS ===== -->
+      <div class="page-admin" id="page-coiffeurs">
+        <div class="grille-admin" id="grille-coiffeurs"></div>
+      </div>
+
+      <!-- ===== PRESTATIONS ===== -->
+      <div class="page-admin" id="page-prestations">
+        <div class="grille-admin" id="grille-services"></div>
+      </div>
+
+      <!-- ===== HORAIRES ===== -->
+      <div class="page-admin" id="page-horaires">
+        <div class="panneau" style="max-width:640px">
+          <div id="zone-horaires"></div>
+          <button class="btn btn-or mt-20" onclick="enregistrerHoraires()">Enregistrer les horaires</button>
+        </div>
+      </div>
+
+      <!-- ===== GALERIE ===== -->
+      <div class="page-admin" id="page-galerie">
+        <div class="barre-outils">
+          <input type="text" id="nouvelle-image" placeholder="URL de l'image..." style="flex:1; max-width:500px;">
+          <button class="btn btn-or" onclick="ajouterImage()"><i class="fa-solid fa-plus"></i> Ajouter</button>
+        </div>
+        <div class="grille-admin" id="grille-galerie-admin"></div>
+      </div>
+
+      <!-- ===== STATISTIQUES ===== -->
+      <div class="page-admin" id="page-statistiques">
+        <div class="grille-stats" id="resume-stats"></div>
+        <div class="panneau mt-20"><h3>Revenu quotidien (30 jours)</h3><div class="conteneur-graphique"><canvas id="graphique-mensuel"></canvas></div></div>
+        <div class="grille-graphiques mt-20">
+          <div class="panneau"><h3>Prestations les plus demandées</h3><div class="conteneur-graphique"><canvas id="graphique-top-services"></canvas></div></div>
+          <div class="panneau"><h3>Répartition par coiffeur</h3><div class="conteneur-graphique"><canvas id="graphique-coiffeurs-stats"></canvas></div></div>
+        </div>
+      </div>
+
+      <!-- ===== PARAMÈTRES ===== -->
+      <div class="page-admin" id="page-parametres">
+        <div class="panneau" style="max-width:600px">
+          <h3>Informations du salon</h3>
+          <div class="champ"><label>Nom du salon</label><input id="p-nom"></div>
+          <div class="champ"><label>Slogan</label><input id="p-slogan"></div>
+          <div class="champ"><label>Adresse</label><input id="p-adresse"></div>
+          <div class="champ"><label>Téléphone</label><input id="p-telephone"></div>
+          <div class="champ"><label>Facebook (URL)</label><input id="p-facebook"></div>
+          <div class="champ"><label>Instagram (URL)</label><input id="p-instagram"></div>
+          <div class="champ"><label>Snapchat (pseudo)</label><input id="p-snapchat"></div>
+          <h3 class="mt-20">Connexion admin</h3>
+          <div class="champ"><label>Identifiant</label><input id="p-user"></div>
+          <div class="champ"><label>Nouveau mot de passe (laisser vide pour ne pas changer)</label><input id="p-pass" type="password"></div>
+          <button class="btn btn-or btn-bloc" onclick="enregistrerParametres()">Enregistrer les paramètres</button>
+        </div>
+
+        <div class="panneau mt-20" style="max-width:600px">
+          <h3>Export des données</h3>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn btn-contour" onclick="exporterExcel()"><i class="fa-regular fa-file-excel"></i> Export Excel</button>
+            <button class="btn btn-contour" onclick="exporterPDF()"><i class="fa-regular fa-file-pdf"></i> Export PDF</button>
+            <button class="btn btn-contour" onclick="exporterJSON()"><i class="fa-solid fa-download"></i> Sauvegarde JSON</button>
+          </div>
+        </div>
+
+        <div class="panneau mt-20" style="max-width:600px; border-color: var(--rouge);">
+          <h3 style="color:var(--rouge)">Zone de danger</h3>
+          <p style="color:var(--gris); font-size:.85rem; margin-bottom:14px;">Réinitialise toutes les données (réservations, clients, coiffeurs, prestations) aux valeurs par défaut.</p>
+          <button class="btn btn-danger" onclick="reinitialiserDonnees()">Réinitialiser toutes les données</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODAL GÉNÉRIQUE ===================== -->
+<div class="fond-modal masque" id="fond-modal">
+  <div class="boite-modal" id="contenu-modal"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/locales/fr.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script src="js/db.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

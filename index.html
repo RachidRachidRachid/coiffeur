@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BARBER PRO DZ — Réservez votre coupe</title>
+<meta name="description" content="Réservez votre coiffeur, votre service et votre créneau en quelques secondes. Barber Pro DZ — L'excellence du style, à l'algérienne.">
+<meta name="theme-color" content="#0b0b0c">
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="icon" href="icons/icon-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="bandeau-or">✂️ NOUVEAU CLIENT ? Votre 1ère coupe à -10% sur présentation de ce message</div>
+
+<header class="entete">
+  <div class="barre-nav">
+    <a href="#accueil" class="logo">
+      <i class="fa-solid fa-scissors rasoir"></i>
+      <span data-nom-salon>BARBER PRO DZ<small>PREMIUM BARBER SHOP</small></span>
+    </a>
+    <nav class="nav-liens" id="nav-liens">
+      <a href="#accueil">Accueil</a>
+      <a href="#reserver">Réserver</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#historique">Historique</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <button id="btn-theme" class="btn btn-contour btn-petit" title="Changer de thème"><i class="fa-solid fa-circle-half-stroke"></i></button>
+      <button id="btn-installer" class="btn btn-or btn-petit masque"><i class="fa-solid fa-download"></i> Installer</button>
+      <button id="btn-menu-mobile" class="btn-menu-mobile"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===================== ACCUEIL ===================== -->
+  <section data-page="accueil">
+    <div class="hero">
+      <i class="fa-solid fa-scissors rasoir-anime"></i>
+      <div class="oeillet">BARBERSHOP PREMIUM · OUARGLA</div>
+      <h1>La coupe parfaite,<br><span>sans attendre.</span></h1>
+      <p class="sous-titre" data-slogan>Réservez votre coiffeur, votre service et votre créneau en moins d'une minute.</p>
+      <div class="actions-hero">
+        <button class="btn btn-or" data-aller-reserver><i class="fa-regular fa-calendar-check"></i> Réserver maintenant</button>
+        <a href="#galerie" class="btn btn-contour"><i class="fa-regular fa-images"></i> Voir la galerie</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-tete">
+        <div class="eyebrow">NOTRE ÉQUIPE</div>
+        <h2>Des experts à votre service</h2>
+        <p>Choisissez le coiffeur qui vous correspond</p>
+      </div>
+      <div class="grille-3" id="zone-coiffeurs-accueil"></div>
+    </div>
+
+    <div class="section" style="padding-top:0">
+      <div class="section-tete">
+        <div class="eyebrow">NOS PRESTATIONS</div>
+        <h2>Un tarif clair, sans surprise</h2>
+      </div>
+      <div class="grille-3" id="apercu-services"></div>
+      <div class="centre mt-30">
+        <button class="btn btn-or" data-aller-reserver>Prendre rendez-vous</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RESERVER ===================== -->
+  <section data-page="reserver" class="masque">
+    <div class="section">
+      <div class="section-tete">
+        <div class="eyebrow">RÉSERVATION</div>
+        <h2>Votre rendez-vous en 5 étapes</h2>
+      </div>
+
+      <div class="fil-etapes">
+        <div class="etape-puce active" data-etape="1"><span class="num">1</span> Coiffeur</div>
+        <div class="etape-puce" data-etape="2"><span class="num">2</span> Service</div>
+        <div class="etape-puce" data-etape="3"><span class="num">3</span> Date</div>
+        <div class="etape-puce" data-etape="4"><span class="num">4</span> Heure</div>
+        <div class="etape-puce" data-etape="5"><span class="num">5</span> Confirmation</div>
+      </div>
+
+      <!-- Étape 1 : coiffeur -->
+      <div id="etape-1" class="zone-etape">
+        <div class="grille-3" id="zone-etape1"></div>
+      </div>
+
+      <!-- Étape 2 : service -->
+      <div id="etape-2" class="zone-etape masque">
+        <div style="display:flex; flex-direction:column; gap:14px;" id="zone-etape2"></div>
+        <div class="actions-etape">
+          <button class="btn btn-contour" id="btn-etape2-precedent"><i class="fa-solid fa-arrow-left"></i> Retour</button>
+          <button class="btn btn-or" id="btn-etape2-suivant" disabled>Continuer <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Étape 3 : date -->
+      <div id="etape-3" class="zone-etape masque">
+        <div class="entete-mois">
+          <button id="mois-precedent"><i class="fa-solid fa-chevron-left"></i></button>
+          <h3 id="titre-mois"></h3>
+          <button id="mois-suivant"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <div class="grille-jours" id="zone-calendrier"></div>
+        <div class="actions-etape">
+          <button class="btn btn-contour" id="btn-etape3-precedent"><i class="fa-solid fa-arrow-left"></i> Retour</button>
+          <button class="btn btn-or" id="btn-etape3-suivant" disabled>Continuer <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Étape 4 : heure -->
+      <div id="etape-4" class="zone-etape masque">
+        <div class="grille-heures" id="zone-heures"></div>
+        <div class="actions-etape">
+          <button class="btn btn-contour" id="btn-etape4-precedent"><i class="fa-solid fa-arrow-left"></i> Retour</button>
+          <button class="btn btn-or" id="btn-etape4-suivant" disabled>Continuer <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Étape 5 : coordonnées + récap -->
+      <div id="etape-5" class="zone-etape masque">
+        <div class="recap-reservation">
+          <div class="recap-ligne"><span>Coiffeur</span><span class="valeur" id="recap-coiffeur"></span></div>
+          <div class="recap-ligne"><span>Service</span><span class="valeur" id="recap-service"></span></div>
+          <div class="recap-ligne"><span>Date</span><span class="valeur" id="recap-date"></span></div>
+          <div class="recap-ligne"><span>Heure</span><span class="valeur" id="recap-heure"></span></div>
+          <div class="recap-total"><span>Total</span><span id="recap-total"></span></div>
+        </div>
+        <form id="form-client">
+          <div class="champ">
+            <label>Nom complet</label>
+            <input type="text" id="champ-nom" required placeholder="Votre nom">
+          </div>
+          <div class="champ">
+            <label>Numéro de téléphone</label>
+            <input type="tel" id="champ-telephone" required placeholder="05XX XX XX XX">
+          </div>
+          <div class="champ">
+            <label>Note (optionnel)</label>
+            <textarea id="champ-note" rows="3" placeholder="Une demande particulière ?"></textarea>
+          </div>
+          <div class="actions-etape">
+            <button type="button" class="btn btn-contour" id="btn-etape5-precedent"><i class="fa-solid fa-arrow-left"></i> Retour</button>
+            <button type="submit" class="btn btn-or">Confirmer <i class="fa-solid fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Étape 6 : confirmation (billet) -->
+      <div id="etape-confirmation" class="zone-etape masque">
+        <div class="billet">
+          <div class="billet-tete">
+            <i class="fa-solid fa-scissors rasoir"></i>
+            <h3>Rendez-vous confirmé</h3>
+          </div>
+          <div class="billet-perforation"></div>
+          <div class="billet-corps">
+            <div class="billet-code" id="billet-code"></div>
+            <div class="recap-ligne"><span>Coiffeur</span><span class="valeur" id="billet-coiffeur"></span></div>
+            <div class="recap-ligne"><span>Service</span><span class="valeur" id="billet-service"></span></div>
+            <div class="recap-ligne"><span>Date</span><span class="valeur" id="billet-date"></span></div>
+            <div class="recap-ligne"><span>Heure</span><span class="valeur" id="billet-heure"></span></div>
+            <div class="billet-qr" id="billet-qr"></div>
+          </div>
+          <div class="billet-pied">Présentez ce code à votre arrivée au salon</div>
+        </div>
+        <div class="centre mt-30">
+          <button class="btn btn-or" id="btn-nouvelle-resa">Faire une autre réservation</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GALERIE ===================== -->
+  <section data-page="galerie" class="masque">
+    <div class="section">
+      <div class="section-tete">
+        <div class="eyebrow">GALERIE</div>
+        <h2>Nos plus belles réalisations</h2>
+      </div>
+      <div class="galerie-grille" id="zone-galerie"></div>
+    </div>
+  </section>
+
+  <!-- ===================== HISTORIQUE ===================== -->
+  <section data-page="historique" class="masque">
+    <div class="section">
+      <div class="section-tete">
+        <div class="eyebrow">MON ESPACE</div>
+        <h2>Historique de mes rendez-vous</h2>
+      </div>
+      <form id="form-recherche-historique" class="zone-etape" style="display:flex; gap:12px; margin-bottom:30px;">
+        <input type="tel" id="champ-tel-historique" placeholder="Votre numéro de téléphone" style="flex:1; background:var(--noir-carte); border:1px solid var(--noir-bord); color:var(--blanc); padding:13px 16px; border-radius:10px;">
+        <button class="btn btn-or" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+      <div class="liste-historique zone-etape" id="zone-historique"></div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section data-page="contact" class="masque">
+    <div class="section">
+      <div class="section-tete">
+        <div class="eyebrow">CONTACT</div>
+        <h2>Une question ? Écrivez-nous</h2>
+        <p><i class="fa-solid fa-location-dot"></i> <span id="adresse-contact"></span> · <i class="fa-solid fa-phone"></i> <span id="tel-contact"></span></p>
+      </div>
+      <form id="form-contact" class="zone-etape">
+        <div class="champ"><label>Nom</label><input type="text" required></div>
+        <div class="champ"><label>Message</label><textarea rows="4" required></textarea></div>
+        <button class="btn btn-or btn-bloc" type="submit">Envoyer le message</button>
+      </form>
+      <div class="reseaux">
+        <a href="#" id="lien-facebook" target="_blank" class="reseau-badge"><i class="fa-brands fa-facebook"></i> Facebook</a>
+        <a href="#" id="lien-instagram" target="_blank" class="reseau-badge"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        <div class="reseau-badge" id="lien-snapchat"><i class="fa-brands fa-snapchat"></i> <span></span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pied">
+  <div class="logo"><i class="fa-solid fa-scissors rasoir"></i> <span data-nom-salon>BARBER PRO DZ</span></div>
+  <p>© 2026 Barber Pro DZ — Tous droits réservés</p>
+  <p class="mt-10"><a href="admin.html" style="color:var(--gris)"><i class="fa-solid fa-lock"></i> Espace administrateur</a></p>
+</footer>
+
+<nav class="nav-bas-mobile">
+  <a href="#accueil"><i class="fa-solid fa-house"></i>Accueil</a>
+  <a href="#reserver"><i class="fa-regular fa-calendar-check"></i>Réserver</a>
+  <a href="#galerie"><i class="fa-regular fa-images"></i>Galerie</a>
+  <a href="#historique"><i class="fa-regular fa-clock"></i>Historique</a>
+  <a href="#contact"><i class="fa-regular fa-envelope"></i>Contact</a>
+</nav>
+
+<div id="zone-toast"></div>
+
+<script src="js/db.js"></script>
+<script src="js/app.js"></script>
+<script>
+  // Aperçu des services sur l'accueil (3 premiers)
+  window.addEventListener('DOMContentLoaded', () => {
+    const zone = document.getElementById('apercu-services');
+    const services = (DB.get('services') || []).slice(0, 6);
+    zone.innerHTML = services.map(s => `
+      <div class="carte carte-service">
+        <div>
+          <div class="cat">${s.categorie}</div>
+          <h3>${s.nom}</h3>
+          <div class="duree"><i class="fa-regular fa-clock"></i> ${s.duree} min</div>
+        </div>
+        <div class="prix">${s.prix} DA</div>
+      </div>`).join('');
+  });
+</script>
+</body>
+</html>
